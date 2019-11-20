@@ -49,6 +49,38 @@ class ConnectServer {
 
         }
 
+        fun getRequestCategoryList(context: Context, handler:JsonResponseHandler?) {
+
+            val client = OkHttpClient()
+
+            var urlBuilder = HttpUrl.parse("${BASE_URL}/system/user_category")!!.newBuilder()
+//            urlBuilder.addEncodedQueryParameter("active", needActive)
+
+            var requestUrl = urlBuilder.build().toString()
+
+            Log.d("가공된 GETURL", requestUrl)
+
+            val request = Request.Builder()
+                .url(requestUrl)
+                // 만약 헤더가 필요하면 header
+                .build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+                    val body = response.body()!!.string()
+                    val jsonObject = JSONObject(body)
+                    handler?.onResponse(jsonObject)
+                }
+
+            })
+
+
+        }
 
     }
 }

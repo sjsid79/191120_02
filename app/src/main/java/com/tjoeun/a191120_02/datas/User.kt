@@ -1,8 +1,9 @@
 package com.tjoeun.a191120_02.datas
 
 import org.json.JSONObject
+import java.io.Serializable
 
-class User {
+class User : Serializable {
 
     var loginId = ""
     var name = ""
