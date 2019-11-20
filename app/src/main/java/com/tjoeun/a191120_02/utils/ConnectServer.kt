@@ -20,7 +20,7 @@ class ConnectServer {
 
             val client = OkHttpClient()
 
-            var urlBuilder = HttpUrl.parse("${BASE_URL}/admin/bank")!!.newBuilder()
+            var urlBuilder = HttpUrl.parse("${BASE_URL}/admin/user")!!.newBuilder()
             urlBuilder.addEncodedQueryParameter("active", needActive)
 
             var requestUrl = urlBuilder.build().toString()
