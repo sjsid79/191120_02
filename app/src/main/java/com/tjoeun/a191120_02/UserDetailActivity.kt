@@ -3,13 +3,16 @@ package com.tjoeun.a191120_02
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.tjoeun.a191120_02.adapters.CategorySpinnerAdapter
 import com.tjoeun.a191120_02.datas.Category
 import com.tjoeun.a191120_02.utils.ConnectServer
+import kotlinx.android.synthetic.main.activity_user_detail.*
 import org.json.JSONObject
 
 class UserDetailActivity : BaseActivity() {
 
     var categoryList =  ArrayList<Category>()
+    var categorySpinnerAdapter:CategorySpinnerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +28,8 @@ class UserDetailActivity : BaseActivity() {
     }
 
     override fun setValues() {
-
+        categorySpinnerAdapter = CategorySpinnerAdapter(mComtext, categoryList)
+        categorySelectSpinner.adapter = categorySpinnerAdapter
     }
 
     fun getCategoryListFromServer() {
@@ -50,6 +54,7 @@ class UserDetailActivity : BaseActivity() {
 
                     runOnUiThread{
                         //스피너 새로고침 필요
+                        categorySpinnerAdapter?.notifyDataSetChanged()
                     }
 
                 }
